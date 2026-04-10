@@ -1,0 +1,15 @@
+Entendendo a lib mosquitto.h para criar o script de suporte.
+
+mosquitto_new() -> cria nova instância de cliente
+
+mosquitto_lib_init() -> precisa ser chamada antes de qualquer outra função do mosquitto.
+
+mosquitto_connect() -> Conecta no broker, (tem vários tipos de conexão, inclusive assíncrona)
+
+mosquito_reconnect() -> Para o caso de precisar tentar reconectar.
+
+mosquito_publish() -> Para publicar
+
+mosquito_subcribe() -> Para ler
+
+Callbacks fazem parte do design da biblioteca, quase todas as funções acima tem callbacks prontos na própria documentação. Os callbacks otimizam a rede fazendo com que você não precise ficar o tempo todo perguntando se uma conexão foi feita ou uma mensagem chegou, ele inverte a lógica, nosso programa fica no modo "Diga-me quando conseguir se conectar","diga-me quando uma mensagem chegar", e partir dai o programa lida com as informações retornadas, callbacks funcionam como listerners dentro do código!
