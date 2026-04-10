@@ -9,7 +9,6 @@
 const int pinorele = 27; // Saida P27 na minha esp32
 const int pinosensor_umi = 34; // Saida P34 na minha esp32
 
-
 //Configs de Lógica:
 const int limite_umidade = 2000;
 const int tempo_rega = 5000;

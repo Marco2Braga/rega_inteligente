@@ -1,0 +1,31 @@
+/*
+Passo a passso para instalação do mosquitto no servidor debian:
+
+sudo apt-get install mosquitto
+sudo apt-get install mosquitto-clients
+
+verificar se está rodando com:
+ systemctl status mosquitto
+
+visualizar no servidor um tópico de assinatura que o client irá publicar:
+    mosquitto_sub -h localhost -t "rega/rega_auto/casa" -v
+    disclaimer: -h de host -t de topico -v verboso
+
+Para utilizar a biblioteca PubSubClient é preciso instalar:
+Via cli:
+arduino-cli lib download PubSubClient
+arduino-cli lib install PubSubClient
+
+Sem ela o código vai dar erro de compilação.
+
+//Verificações da porta serial:
+// arduino-cli monitor -p /dev/ttyUSB0 --config baudrate=115200
+
+*/
+
+
+//Comandos de compile e upload
+
+// arduino-cli compile --fqbn esp32:esp32:esp32 rega_auto/
+// arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 rega_auto/
+
