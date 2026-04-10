@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="telaprincipal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Dashboard | Automação Agrícola</title>
+</head>
+<body>
+    
+    <header class="main-header">
+        <nav class="menu">
+             <ul>
+                <li><a href="#" onclick="showPage('page-inicio')">Início</a></li>
+                <li><a href="#" onclick="showPage('page-monitoramento')">Monitoramento</a></li>
+                <li><a href="#" onclick="showPage('page-historico')">Histórico</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="content-area">
+
+        <!-- Página INÍCIO -->
+        <div id="page-inicio" class="content-section">
+            <main class="dashboard-container">
+                <div class="data-status-section">
+                    <h2><i class="bi bi-database-check"></i> Status da Fonte de Dados</h2>
+                    <p>Os dados estão sendo carregados automaticamente do arquivo <code>dados_horta.csv</code>.</p>
+                    <p id="uploadStatus" class="status-message"></p>
+                </div>
+
+                <section class="info-grid"> 
+                    
+                    <div id="bomba-card" class="card primary-card">
+                        <h2 class="card-title">
+                            <i class="bi bi-water"></i> Status da Bomba
+                        </h2>
+                        <div class="card-content">
+                            <p><strong>Status Atual:</strong> <span id="bomba-status" class="status-badge">--</span></p>
+                            <p><strong>Última Atualização:</strong> <span id="bomba-tempo">--</span></p>
+                            <p><strong>Total de Ativações:</strong> <span id="bomba-total">0</span></p>
+                        </div>
+                    </div>
+                    
+                    <div id="umidade-card" class="card secondary-card">
+                        <h2 class="card-title">
+                            <i class="bi bi-droplet"></i> Umidade do Solo
+                        </h2>
+                        <div class="card-content">
+                            <p><strong>Leitura Atual:</strong> <span id="umidade-atual">--</span> %</p>
+                            <p><strong>Última Atualização:</strong> <span id="umidade-tempo">--</span></p>
+                            <p><strong>Média (últimas 24h):</strong> <span id="umidade-media">--</span> %</p>
+                        </div>
+                    </div>
+                    
+                    <div id="info-card" class="card tertiary-card">
+                        <h2 class="card-title">
+                            <i class="bi bi-info-circle"></i> Informações do Sistema
+                        </h2>
+                        <div class="card-content">
+                            <p><strong>Total de Registros:</strong> <span id="total-registros">0</span></p>
+                            <p><strong>Período de Dados:</strong> <span id="periodo-dados">--</span></p>
+                            <p><strong>Status do Arquivo:</strong> <span id="status-arquivo">Aguardando upload</span></p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div> 
+
+        <!-- Página MONITORAMENTO -->
+        <div id="page-monitoramento" class="content-section hidden">
+            <div class="page-content">
+                <h2><i class="bi bi-graph-up"></i> Monitoramento em Tempo Real</h2>
+                <p>Visualize os dados mais recentes do seu sistema de monitoramento da horta.</p>
+
+                <div class="monitoring-container">
+                    <div class="filter-section">
+                        <label for="filterRows">Mostrar últimas:</label>
+                        <select id="filterRows">
+                            <option value="5">5 registros</option>
+                            <option value="10" selected>10 registros</option>
+                            <option value="20">20 registros</option>
+                            <option value="50">50 registros</option>
+                        </select>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="bi bi-calendar-event"></i> Data e Hora</th>
+                                    <th><i class="bi bi-droplet"></i> Umidade (Raw / %)</th>
+                                    <th><i class="bi bi-water"></i> Contador da Bomba</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colspan="3" style="text-align: center; color: #999;">Carregue um arquivo CSV para visualizar os dados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página HISTÓRICO -->
+        <div id="page-historico" class="content-section hidden">
+            <div class="page-content">
+                <h2><i class="bi bi-clock-history"></i> Histórico de Dados</h2>
+                <p>Analise o histórico completo de monitoramento e identifique padrões.</p>
+
+                <div class="history-container">
+                    <div class="chart-section">
+                        <h3><i class="bi bi-graph-up"></i> Gráfico de Umidade</h3>
+                        <canvas id="umidadeChart" class="chart-canvas"></canvas>
+                    </div>
+
+                    <div class="stats-section">
+                        <h3><i class="bi bi-bar-chart"></i> Estatísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <p class="stat-label">Umidade Máxima</p>
+                                <p class="stat-value" id="stat-max">--</p>
+                            </div>
+                            <div class="stat-item">
+                                <p class="stat-label">Umidade Mínima</p>
+                                <p class="stat-value" id="stat-min">--</p>
+                            </div>
+                            <div class="stat-item">
+                                <p class="stat-label">Umidade Média</p>
+                                <p class="stat-value" id="stat-avg">--</p>
+                            </div>
+                            <div class="stat-item">
+                                <p class="stat-label">Bomba Ativa</p>
+                                <p class="stat-value" id="stat-bomba">--</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div> 
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
