@@ -118,6 +118,7 @@ _Marque as caixas com um `x` (`- [x]`) quando a tarefa for concluída._
 - [ ] Implementar a lógica de decisão para a rega automática.
 - [ ] Configurar um banco de dados (SQLite, PostgreSQL) para armazenar o histórico de medições.
 - [ ] Criar endpoint para acionamento manual da rega.
+- [ ] Construir biblioteca com melhores condições para algumas plantas, permitindo melhor cuidado.
 
 ### 🌐 Frontend & Dashboard
 - [ ] Desenvolver o protótipo da interface (layout, wireframe).
